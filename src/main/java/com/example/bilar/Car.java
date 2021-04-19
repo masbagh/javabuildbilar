@@ -1,7 +1,6 @@
 package com.example.bilar;
 
 
-
 public class Car {
     private Integer id;
     private static Integer num = 0;
