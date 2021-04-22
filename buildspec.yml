@@ -18,7 +18,7 @@ phases:
  # - docker push 096925879815.dkr.ecr.eu-north-1.amazonaws.com/app1:latest
 artifacts:
  files:
- -target/bilar-0.0.1-SNAPSHOT.jar
+ - target/bilar-0.0.1-SNAPSHOT.jar
 #  - imagedefinitions.json
 #  - Dockerrun.aws.json
 discard-paths: yes
