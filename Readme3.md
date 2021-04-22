@@ -1,6 +1,112 @@
 inlämning 3
 
+Inlämningsuppgift:
 
+	Gör två (minst) olika projekt 
+
+	= Microservices. Av den typen vi redan gjort. CRUD + databas
+
+	Projekten ska vara separata men del av ett större sammanhang. 
+
+
+
+	Tex man kan ha
+
+	ProductService (produkter och priser)
+
+	ShoppingCartService (produktid, namn, pris, antal)
+
+
+
+	Dessa två hör ju till samma APPLIKATION kan man förstå
+
+	Men du ska bygga dom HELT SEPARAT
+
+		- tänk att på ditt företag jobbar en grupp med ProductService i ex Python
+
+		- en annan grupp sitter med Java (i Indien ) och jobbar med ShoppingCartService
+
+		ERAN KOMMUNIKATION ÄR GENOM Rest-interfacet! Annars är ni helt separata
+
+		Så TVÅ OLIKA DATABASER OCKSÅ!
+
+
+
+	Källkod i github - två olika projekt
+
+	Enhetstester ska finnas (behöver inte vara heltäckande eller så men ni fattar)
+
+
+
+	Bygg två pipelines. 			
+
+	Dessa ska automatiskt
+
+		- KÖRA ENHETSTESTER
+
+		- deploya till Elastic Beanstalk
+
+
+              INLÄMNING = klistra in Github-länk
+
+
+
+VG:
+
+	Jobba agilt. Embrace the changes. När G delen är klar ska den lämnas in. 
+
+	Sen ska ni (ex skapa branches eller nya projekt) göra samma sak fast 
+
+		bygga Docker image och deploya till Elastic Beanstalk (i bakgrunden ECS)
+
+       Skapa ett enkelt web UI - ungefär som Stefans super UI
+       --------------------------------------
+
+Exempel:
+Bokförlagssystem - 
+
+	ha en Company (namn), adress, kontakltuppgifter etc etc
+	ha en Bok (titel, isbn, utgiven år, company_id)
+
+Lagersystem - 
+
+	produkt - id, namn, pris ??
+
+
+
+	lagerhantering: product_id, antal
+
+			- inleverans()
+
+			- utleverans()
+
+Projekt 1 - Bilar id, namn, modell, årsmodell, regnr   - egen databas. EGEN BEANSTALK ENV med databas och site
+
+                    egna tester. API CRUD. Egen pipeline
+
+Projekt 2 - Employee id, namn, avdelning, anställningsnummer, anställningsdatum, regnr  - egen databas. EGEN BEANSTALK ENV med databas och site
+
+                    egna tester. API CRUD. Egen pipeline
+
+*************************************************************************************************************************
+                                                    Solution
+- testar (min ändring)
+- regressionstest (sidoeffekter)
+- commit + push källkod
+- ./mvn -DskipTests clean package
+- logga in på AWS
+- klicka in på beanstalk env
+- laddar upp vår jar
+----------------------------------------------------------------------
+Vi skapar projekt bilar med static välues (volvo,... )
+maven , then run that 
+creating artifact:exe/war/jar:  
+PS E:\STI\Java-Code\20210330\bilar\bilar>   ./mvnw.cmd clean package -DskipTests
+gör publish på git hub.
+                         ------------
+our PIPeline to automatic deploy : Code commit '=> github-> Sourcecode + run codesqec.yml => Codebuild -> jarfile=> AWS S3 storage => CodeDeplopy => Elastic Beanstalk =>
+
+                         skicka på molnet (Azur(Devops)/AWS(Codebuild))
 	Creating beanstalk application:
 Sing in to aws
 Services>elastic beanstalk> Applications>create Application
@@ -37,7 +143,7 @@ Elastic Benstalk
 
 codebuild:
 In aws we use codebuild or codepipline
->build:git prata med aws>create build project>project name:BilarBuild, Source:github, check , repository in my github account, Githubrepository:javabuild and then put the link from git(aspcodenet/javabuildbilar.git, rebuild every time a code change is pushed to repository check så det blir tillgänglig till våran repository , check signal, 
+>build:git prata med aws>create build project>project name:BilarBuild, Source:github, check  repository in my github account, Githubrepository:javabuild and then put the link from git(aspcodenet/javabuildbilar.git, rebuild every time a code change is pushed to repository check så det blir tillgänglig till våran repository , check signal, 
 Environment:
 Operatin system:amazon linux 2 tillexample, runtime
  standard, image standard 3.0, new service role, use a buildspec file,
